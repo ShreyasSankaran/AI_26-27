@@ -1,0 +1,109 @@
+=== Conditional probability tables ===
+P(next | <START>):
+    the      6/6 = 1.0000
+
+P(next | the):
+    cat      3/12 = 0.2500
+    dog      3/12 = 0.2500
+    mat      2/12 = 0.1667
+    park     2/12 = 0.1667
+    rug      2/12 = 0.1667
+
+P(next | cat):
+    sat      2/3 = 0.6667
+    ran      1/3 = 0.3333
+
+P(next | dog):
+    sat      2/3 = 0.6667
+    ran      1/3 = 0.3333
+
+P(next | sat):
+    on       4/4 = 1.0000
+
+P(next | ran):
+    to       2/2 = 1.0000
+
+P(next | on):
+    the      4/4 = 1.0000
+
+P(next | to):
+    the      2/2 = 1.0000
+
+P(next | mat):
+    <END>    2/2 = 1.0000
+
+P(next | rug):
+    <END>    2/2 = 1.0000
+
+P(next | park):
+    <END>    2/2 = 1.0000
+
+=== Normalisation test ===
+  sum_v P(v | <START> ) = 1.000000  OK
+  sum_v P(v | cat     ) = 1.000000  OK
+  sum_v P(v | dog     ) = 1.000000  OK
+  sum_v P(v | mat     ) = 1.000000  OK
+  sum_v P(v | on      ) = 1.000000  OK
+  sum_v P(v | park    ) = 1.000000  OK
+  sum_v P(v | ran     ) = 1.000000  OK
+  sum_v P(v | rug     ) = 1.000000  OK
+  sum_v P(v | sat     ) = 1.000000  OK
+  sum_v P(v | the     ) = 1.000000  OK
+  sum_v P(v | to      ) = 1.000000  OK
+All rows sum to 1: True 
+
+=== Zero-probability transitions (among the five requested words) ===
+  the  -> ['<END>', 'on', 'ran', 'sat', 'the', 'to']
+  cat  -> ['<END>', 'cat', 'dog', 'mat', 'on', 'park', 'rug', 'the', 'to']
+  dog  -> ['<END>', 'cat', 'dog', 'mat', 'on', 'park', 'rug', 'the', 'to']
+  sat  -> ['<END>', 'cat', 'dog', 'mat', 'park', 'ran', 'rug', 'sat', 'the', 'to']
+  ran  -> ['<END>', 'cat', 'dog', 'mat', 'on', 'park', 'ran', 'rug', 'sat', 'the']
+
+=== Most probable next word ===
+  argmax P(. | <START> ) = the
+  argmax P(. | the     ) = cat
+  argmax P(. | cat     ) = sat
+  argmax P(. | dog     ) = sat
+  argmax P(. | sat     ) = on
+  argmax P(. | ran     ) = to
+  argmax P(. | on      ) = the
+  argmax P(. | to      ) = the
+
+=== Unseen context ===
+  P(next | 'elephant') = {} -> generation stops
+
+=== 20 sampled sentences ===
+   1. the cat sat on the dog ran to the cat sat on the cat sat on the dog ran to
+   2. the dog sat on the mat
+   3. the park
+   4. the dog sat on the rug
+   5. the park
+   6. the cat sat on the cat sat on the mat
+   7. the mat
+   8. the dog sat on the mat
+   9. the rug
+  10. the dog sat on the mat
+  11. the park
+  12. the mat
+  13. the mat
+  14. the mat
+  15. the mat
+  16. the rug
+  17. the cat sat on the cat sat on the park
+  18. the dog ran to the dog sat on the park
+  19. the rug
+  20. the park
+
+=== Greedy vs sampling (5 sentences each) ===
+ Greedy:
+    the cat sat on the cat sat on the cat sat on the cat sat on the cat sat on    [hit max_len, never reached <END>]
+    the cat sat on the cat sat on the cat sat on the cat sat on the cat sat on    [hit max_len, never reached <END>]
+    the cat sat on the cat sat on the cat sat on the cat sat on the cat sat on    [hit max_len, never reached <END>]
+    the cat sat on the cat sat on the cat sat on the cat sat on the cat sat on    [hit max_len, never reached <END>]
+    the cat sat on the cat sat on the cat sat on the cat sat on the cat sat on    [hit max_len, never reached <END>]
+ Sampling:
+    the dog sat on the dog sat on the cat ran to the mat
+    the park
+    the cat ran to the rug
+    the park
+    the rug
