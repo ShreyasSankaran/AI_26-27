@@ -1,0 +1,103 @@
+=== Selected conditional probability tables ===
+P(next | (<START>, <START>)):
+    the      6/6 = 1.0000
+
+P(next | (<START>, the)):
+    cat      3/6 = 0.5000
+    dog      3/6 = 0.5000
+
+P(next | (the, cat)):
+    sat      2/3 = 0.6667
+    ran      1/3 = 0.3333
+
+P(next | (the, dog)):
+    sat      2/3 = 0.6667
+    ran      1/3 = 0.3333
+
+P(next | (cat, sat)):
+    on       2/2 = 1.0000
+
+P(next | (cat, ran)):
+    to       1/1 = 1.0000
+
+P(next | (sat, on)):
+    the      4/4 = 1.0000
+
+P(next | (on, the)):
+    mat      2/4 = 0.5000
+    rug      2/4 = 0.5000
+
+P(next | (ran, to)):
+    the      2/2 = 1.0000
+
+P(next | (to, the)):
+    park     2/2 = 1.0000
+
+P(next | (the, mat)):
+    <END>    2/2 = 1.0000
+
+=== Normalisation test ===
+  sum_v P(v | <START>, <START>)       = 1.000000  OK
+  sum_v P(v | <START>, the)           = 1.000000  OK
+  sum_v P(v | cat, ran)               = 1.000000  OK
+  sum_v P(v | cat, sat)               = 1.000000  OK
+  sum_v P(v | dog, ran)               = 1.000000  OK
+  sum_v P(v | dog, sat)               = 1.000000  OK
+  sum_v P(v | on, the)                = 1.000000  OK
+  sum_v P(v | ran, to)                = 1.000000  OK
+  sum_v P(v | sat, on)                = 1.000000  OK
+  sum_v P(v | the, cat)               = 1.000000  OK
+  sum_v P(v | the, dog)               = 1.000000  OK
+  sum_v P(v | the, mat)               = 1.000000  OK
+  sum_v P(v | the, park)              = 1.000000  OK
+  sum_v P(v | the, rug)               = 1.000000  OK
+  sum_v P(v | to, the)                = 1.000000  OK
+All rows sum to 1: True 
+
+=== Most probable next word ===
+  argmax P(. | <START>, the) = cat
+  argmax P(. | the, cat) = sat
+  argmax P(. | the, dog) = sat
+  argmax P(. | cat, sat) = on
+  argmax P(. | sat, on) = the
+  argmax P(. | on, the) = mat
+  argmax P(. | to, the) = park
+
+=== Unseen context ===
+  P(next | ('cat','dog')) = {} -> generation stops
+
+=== 20 sampled sentences ===
+   1. the cat sat on the rug
+   2. the cat sat on the mat
+   3. the dog sat on the mat
+   4. the cat sat on the mat
+   5. the dog ran to the park
+   6. the dog sat on the rug
+   7. the cat sat on the mat
+   8. the cat sat on the rug
+   9. the dog sat on the rug
+  10. the dog ran to the park
+  11. the dog ran to the park
+  12. the cat sat on the rug
+  13. the cat ran to the park
+  14. the dog sat on the rug
+  15. the dog sat on the rug
+  16. the cat sat on the rug
+  17. the cat ran to the park
+  18. the dog sat on the mat
+  19. the dog ran to the park
+  20. the cat sat on the rug
+
+=== Greedy vs sampling (5 sentences each) ===
+ Greedy:
+    the cat sat on the mat 
+    the cat sat on the mat 
+    the cat sat on the mat 
+    the cat sat on the mat 
+    the cat sat on the mat 
+ Sampling:
+    the dog sat on the mat
+    the cat sat on the mat
+    the cat sat on the mat
+    the cat ran to the park
+    the cat ran to the park

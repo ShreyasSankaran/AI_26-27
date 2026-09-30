@@ -1,0 +1,17 @@
+Vocabulary size |V| (incl. <START>, <END>): 12
+                                   1st order 2nd order
+observed contexts (CPT rows)              11        15
+non-zero parameters (CPT cells)           17        19
+full table size |V|^k x |V|              144      1728
+fraction of full table observed        0.118     0.011
+zero-prob. contexts (unobserved)           1       129
+
+[1st order] 1000 sampled sentences: 165 distinct, 159 distinct not in training data, 25 hit max_len, mean length 5.8
+   fraction of samples identical to a training sentence: 0.14
+   fraction with well-formed 6-word 'the A V P the B' pattern: 0.25
+   examples of novel sentences: ['the cat ran to the cat ran to the mat', 'the cat ran to the cat ran to the park', 'the cat ran to the cat ran to the rug', 'the cat ran to the cat sat on the cat sat on the cat sat on the rug']
+
+[2nd order] 1000 sampled sentences: 6 distinct, 0 distinct not in training data, 0 hit max_len, mean length 6.0
+   fraction of samples identical to a training sentence: 1.00
+   fraction with well-formed 6-word 'the A V P the B' pattern: 1.00
+   examples of novel sentences: []
